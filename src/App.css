@@ -1,0 +1,203 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+/* Spacing between Routine Name, Sets, and Repeat Count */
+.routine-name-box {
+  margin-bottom: 56px !important;
+}
+.sets-box {
+  margin-bottom: 56px !important;
+}
+.repeat-box {
+  margin-bottom: 56px !important;
+}
+
+/* Increase vertical spacing between set rows */
+.sets-box .MuiGrid-container {
+  margin-bottom: 24px !important;
+}
+
+/* Add more space between input fields inside a set */
+.sets-box .MuiGrid-item {
+  padding-bottom: 8px !important;
+}
+
+/* Add more space below Add Set button */
+.add-set-btn {
+  margin-top: 16px;
+  margin-bottom: 32px;
+}
+
+/* Outline and label color enforcement */
+input, .MuiInputBase-root, .MuiOutlinedInput-root {
+  border-radius: 12px !important;
+  border-color: #FFC663 !important;
+  background: #fff !important;
+  /* Remove faint outline */
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.MuiInputLabel-root {
+  color: #FFC663 !important;
+}
+
+.MuiOutlinedInput-notchedOutline {
+  border-color: #FFC663 !important;
+}
+
+/* Placeholder color for all inputs */
+input::placeholder, .MuiInputBase-input::placeholder {
+  color: #FFC663 !important;
+  opacity: 1;
+}
+
+/* Add Set button color */
+.add-set-btn {
+  color: #FFB84C;
+  font-weight: 600;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: color 0.2s;
+}
+.add-set-btn:hover {
+  color: #FFA500;
+}
+
+/* Delete icon color */
+.delete-icon {
+  color: #FFB84C !important;
+}
+
+/* Start, Reset, Pause button colors already set above */
+
+/* Background and grid (already present) */
+body {
+  min-height: 100vh;
+  background: #FDEAA6 !important;
+  font-family: 'Inter', 'Pretendard', 'Noto Sans KR', Arial, sans-serif;
+  position: relative;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+body::before {
+  content: none !important;
+}
+
+.MuiPaper-root {
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.08);
+  position: relative;
+  z-index: 1;
+  padding: 48px 32px !important;
+}
+
+.timer-btn {
+  min-width: 100px;
+  border-radius: 12px;
+  font-weight: 500;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);
+}
+
+.timer-btn.start {
+  background: #C6E8FF !important;
+  color: #222 !important;
+}
+.timer-btn.pause {
+  background: #F3FFD6 !important;
+  color: #222 !important;
+}
+.timer-btn.reset {
+  background: #FFCBE1 !important;
+  color: #222 !important;
+}
+
+.MuiTypography-h4 {
+  font-size: 2.5rem !important;
+  font-weight: 600 !important;
+  margin-bottom: 32px !important;
+}
+
+/* Ensure the main card (MuiPaper-root) does not disappear or change on hover */
+.MuiPaper-root:hover {
+  background: #fff !important;
+  background-color: #fff !important;
+  opacity: 1 !important;
+  border-color: inherit !important;
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.08) !important;
+}
+
+/* Make sure the entire page background is yellow */
+html, body {
+  min-height: 100vh;
+  width: 100vw;
+  background: #FDEAA6 !important;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Make pause button shadow match start/reset */
+.timer-btn.pause, .timer-btn.pause:hover {
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04) !important;
+}
+.timer-btn.pause:disabled, .timer-btn.pause[disabled] {
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04) !important;
+}
+
+/* Shake animation for the timer card */
+@keyframes shake {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-10px); }
+  40% { transform: translateX(10px); }
+  60% { transform: translateX(-10px); }
+  80% { transform: translateX(10px); }
+  100% { transform: translateX(0); }
+}
+.MuiPaper-root.shake {
+  animation: shake 0.5s;
+}
