@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useState, useRef, useEffect } from 'react';
 import { Typography, TextField, Button, Box, IconButton, Paper, Drawer } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import CloseIcon from '@mui/icons-material/Close';
 
 interface SetConfig {
   work: number;
@@ -252,6 +253,24 @@ const App: React.FC = () => {
           }
         }}
       >
+        {/* X Close Button at top right for mobile */}
+        <IconButton
+          aria-label="close options panel"
+          onClick={() => setDrawerOpen(false)}
+          sx={{
+            position: 'absolute',
+            top: 8,
+            right: 8,
+            zIndex: 1500,
+            color: '#FFC663',
+            background: '#fff',
+            boxShadow: '0 1px 4px 0 rgba(0,0,0,0.04)',
+            '&:hover': { background: '#FFF9E3' },
+            display: { xs: 'flex', sm: 'flex' }
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
         {/* Options Tab inside Drawer, always visible */}
         <Button
           onClick={() => setDrawerOpen(false)}
