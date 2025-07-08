@@ -12,10 +12,10 @@
   transition: filter 300ms;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 2em #4682B4aa);
 }
 .logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  filter: drop-shadow(0 0 2em #87CEEBaa);
 }
 
 @keyframes logo-spin {
@@ -38,7 +38,7 @@
 }
 
 .read-the-docs {
-  color: #888;
+  color: #4682B4;
 }
 
 /* Spacing between Routine Name, Sets, and Repeat Count */
@@ -71,7 +71,7 @@
 /* Outline and label color enforcement */
 input, .MuiInputBase-root, .MuiOutlinedInput-root {
   border-radius: 12px !important;
-  border-color: #FFC663 !important;
+  border-color: #87CEEB !important;
   background: #fff !important;
   /* Remove faint outline */
   box-shadow: none !important;
@@ -79,22 +79,22 @@ input, .MuiInputBase-root, .MuiOutlinedInput-root {
 }
 
 .MuiInputLabel-root {
-  color: #FFC663 !important;
+  color: #4682B4 !important;
 }
 
 .MuiOutlinedInput-notchedOutline {
-  border-color: #FFC663 !important;
+  border-color: #87CEEB !important;
 }
 
 /* Placeholder color for all inputs */
 input::placeholder, .MuiInputBase-input::placeholder {
-  color: #FFC663 !important;
+  color: #4682B4 !important;
   opacity: 1;
 }
 
 /* Add Set button color */
 .add-set-btn {
-  color: #FFB84C;
+  color: #4682B4;
   font-weight: 600;
   background: none;
   border: none;
@@ -103,20 +103,17 @@ input::placeholder, .MuiInputBase-input::placeholder {
   transition: color 0.2s;
 }
 .add-set-btn:hover {
-  color: #FFA500;
+  color: #5F9EA0;
 }
 
 /* Delete icon color */
 .delete-icon {
-  color: #FFB84C !important;
+  color: #5F9EA0 !important;
 }
 
-/* Start, Reset, Pause button colors already set above */
-
-/* Background and grid (already present) */
 body {
   min-height: 100vh;
-  background: #FDEAA6 !important;
+  background: #E6F3FF !important;
   font-family: 'Inter', 'Pretendard', 'Noto Sans KR', Arial, sans-serif;
   position: relative;
   margin: 0;
@@ -144,25 +141,35 @@ body::before {
 }
 
 .timer-btn.start {
-  background: #C6E8FF !important;
-  color: #222 !important;
+  background: #B3E0FF !important;
+  color: #4682B4 !important;
+  border: none !important;
 }
 .timer-btn.pause {
-  background: #F3FFD6 !important;
-  color: #222 !important;
+  background: #A7C7E7 !important;
+  color: #4682B4 !important;
+  border: none !important;
 }
 .timer-btn.reset {
-  background: #FFCBE1 !important;
-  color: #222 !important;
+  background: #7EC8E3 !important;
+  color: #4682B4 !important;
+  border: none !important;
+}
+
+/* Add subtle box-shadow on hover for timer buttons */
+.timer-btn.start:hover,
+.timer-btn.pause:hover,
+.timer-btn.reset:hover {
+  box-shadow: 0 4px 16px 0 rgba(70, 130, 180, 0.18) !important;
 }
 
 .MuiTypography-h4 {
   font-size: 2.5rem !important;
   font-weight: 600 !important;
   margin-bottom: 32px !important;
+  color: #4682B4 !important;
 }
 
-/* Ensure the main card (MuiPaper-root) does not disappear or change on hover */
 .MuiPaper-root:hover {
   background: #fff !important;
   background-color: #fff !important;
@@ -171,17 +178,15 @@ body::before {
   box-shadow: 0 4px 24px 0 rgba(0,0,0,0.08) !important;
 }
 
-/* Make sure the entire page background is yellow */
 html, body {
   min-height: 100vh;
   width: 100vw;
-  background: #FDEAA6 !important;
+  background: #E6F3FF !important;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Make pause button shadow match start/reset */
 .timer-btn.pause, .timer-btn.pause:hover {
   box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04) !important;
 }
@@ -189,7 +194,6 @@ html, body {
   box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04) !important;
 }
 
-/* Shake animation for the timer card */
 @keyframes shake {
   0% { transform: translateX(0); }
   20% { transform: translateX(-10px); }

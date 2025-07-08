@@ -159,8 +159,9 @@ const App: React.FC = () => {
   }, [shake]);
 
   const handleSetChange = (index: number, field: 'work' | 'rest', value: number) => {
+    // Store in seconds, but user enters minutes
     const newSets = sets.map((set, i) =>
-      i === index ? { ...set, [field]: value } : set
+      i === index ? { ...set, [field]: value * 60 } : set
     );
     setSets(newSets);
   };
@@ -201,30 +202,50 @@ const App: React.FC = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
-    <Box sx={{ minHeight: '100vh', width: '100vw', background: '#FDEAA6', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
+    <Box
+      sx={{
+        minHeight: '100vh',
+        width: '100vw',
+        background: '#E6F3FF',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'relative',
+        p: { xs: 0, sm: 0, md: 0 },
+      }}
+    >
       {/* Options Tab only visible when Drawer is closed */}
       {!drawerOpen && (
-        <Box sx={{ position: 'fixed', top: '50%', left: 0, zIndex: 1301, transform: 'translateY(-50%)' }}>
+        <Box
+          sx={{
+            position: 'fixed',
+            top: { xs: 'auto', sm: '50%' },
+            bottom: { xs: 16, sm: 'auto' },
+            left: 0,
+            zIndex: 1301,
+            transform: { xs: 'none', sm: 'translateY(-50%)' },
+          }}
+        >
           <Button
             onClick={() => setDrawerOpen(true)}
             sx={{
-              borderRadius: '0 12px 12px 0',
+              borderRadius: { xs: '0 12px 12px 0', sm: '0 12px 12px 0' },
               background: '#fff',
               color: '#222',
               fontWeight: 500,
               px: 0,
               py: 0,
               minWidth: 0,
-              width: 32,
-              height: 90,
+              width: { xs: 36, sm: 32 },
+              height: { xs: 48, sm: 90 },
               boxShadow: '0 2px 8px 0 rgba(0,0,0,0.08)',
-              writingMode: 'vertical-rl',
-              textOrientation: 'mixed',
-              fontSize: '0.65rem',
+              writingMode: { xs: 'horizontal-tb', sm: 'vertical-rl' },
+              textOrientation: { xs: 'mixed', sm: 'mixed' },
+              fontSize: { xs: '0.85rem', sm: '0.65rem' },
               letterSpacing: '0.03em',
               pointerEvents: 'auto',
               zIndex: 1400,
-              '&:hover': { background: '#FFF9E3' },
+              '&:hover': { background: '#F0F8FF' },
             }}
           >
             Options
@@ -238,11 +259,11 @@ const App: React.FC = () => {
         onClose={() => setDrawerOpen(false)}
         PaperProps={{
           sx: {
-            width: { xs: '90vw', sm: 400 },
-            maxWidth: 480,
+            width: { xs: '100vw', sm: 400 },
+            maxWidth: { xs: '100vw', sm: 480 },
             borderRadius: 0,
             background: '#fff',
-            p: { xs: 2, md: 4 },
+            p: { xs: 1, sm: 2, md: 4 },
             boxShadow: '0 2px 16px 0 rgba(0,0,0,0.10)',
             display: 'flex',
             flexDirection: 'column',
@@ -250,7 +271,7 @@ const App: React.FC = () => {
             justifyContent: 'flex-start',
             position: 'relative',
             overflow: 'visible',
-          }
+          },
         }}
       >
         {/* X Close Button at top right for mobile */}
@@ -262,11 +283,11 @@ const App: React.FC = () => {
             top: 8,
             right: 8,
             zIndex: 1500,
-            color: '#FFC663',
+            color: '#87CEEB',
             background: '#fff',
             boxShadow: '0 1px 4px 0 rgba(0,0,0,0.04)',
-            '&:hover': { background: '#FFF9E3' },
-            display: { xs: 'flex', sm: 'flex' }
+            '&:hover': { background: '#F0F8FF' },
+            display: { xs: 'flex', sm: 'flex' },
           }}
         >
           <CloseIcon />
@@ -295,7 +316,8 @@ const App: React.FC = () => {
             letterSpacing: '0.03em',
             pointerEvents: 'auto',
             zIndex: 1400,
-            '&:hover': { background: '#FFF9E3' },
+            display: { xs: 'none', sm: 'flex' },
+            '&:hover': { background: '#F0F8FF' },
           }}
         >
           Options
@@ -312,90 +334,107 @@ const App: React.FC = () => {
                 backgroundColor: '#fff',
                 '& .MuiOutlinedInput-root': {
                   borderRadius: '12px',
-                  borderColor: '#FFC663',
+                  borderColor: '#87CEEB',
                   backgroundColor: '#fff',
                 },
                 '& .MuiInputLabel-root': {
-                  color: '#FFC663',
+                  color: '#87CEEB',
                 },
                 '& .MuiOutlinedInput-notchedOutline': {
-                  borderColor: '#FFC663',
+                  borderColor: '#87CEEB',
                 },
+                fontSize: { xs: '1rem', sm: '1.1rem' },
               }}
-              InputLabelProps={{ style: { color: '#FFC663' } }}
+              InputLabelProps={{ style: { color: '#87CEEB' } }}
             />
           </Box>
           <Box className="sets-box" sx={{ width: '100%', mb: 0 }}>
             {sets.map((set, idx) => (
-              <Box key={idx} sx={{ display: 'flex', alignItems: 'center', mb: 3, columnGap: 2 }}>
+              <Box
+                key={idx}
+                sx={{
+                  display: 'flex',
+                  flexDirection: { xs: 'column', sm: 'row' },
+                  alignItems: { xs: 'stretch', sm: 'center' },
+                  mb: 3,
+                  columnGap: 2,
+                  rowGap: { xs: 1, sm: 0 },
+                }}
+              >
                 <TextField
-                  label="Work (secs)"
+                  label="Work (mins)"
                   type="number"
-                  value={set.work === 0 ? "" : set.work}
+                  value={set.work === 0 ? '' : set.work / 60}
                   onChange={e => handleSetChange(idx, 'work', Number(e.target.value))}
                   fullWidth
                   id={`work-input-${idx}`}
                   sx={{
-                    mr: 1,
+                    mr: { xs: 0, sm: 1 },
+                    mb: { xs: 1, sm: 0 },
                     backgroundColor: '#fff',
                     '& .MuiOutlinedInput-root': {
                       borderRadius: '12px',
-                      borderColor: '#FFC663',
+                      borderColor: '#87CEEB',
                       backgroundColor: '#fff',
                     },
                     '& .MuiInputLabel-root': {
-                      color: '#FFC663',
+                      color: '#87CEEB',
                     },
                     '& .MuiOutlinedInput-notchedOutline': {
-                      borderColor: '#FFC663',
+                      borderColor: '#87CEEB',
                     },
                   }}
-                  InputLabelProps={{ style: { color: '#FFC663' }, shrink: true }}
+                  InputLabelProps={{ style: { color: '#87CEEB' }, shrink: true }}
                   inputProps={{ min: 0 }}
                 />
                 <TextField
-                  label="Rest (secs)"
+                  label="Rest (mins)"
                   type="number"
-                  value={set.rest === 0 ? "" : set.rest}
+                  value={set.rest === 0 ? '' : set.rest / 60}
                   onChange={e => handleSetChange(idx, 'rest', Number(e.target.value))}
                   fullWidth
                   id={`rest-input-${idx}`}
                   sx={{
-                    ml: 1,
-                    mr: 1,
+                    ml: { xs: 0, sm: 1 },
+                    mr: { xs: 0, sm: 1 },
+                    mb: { xs: 1, sm: 0 },
                     backgroundColor: '#fff',
                     '& .MuiOutlinedInput-root': {
                       borderRadius: '12px',
-                      borderColor: '#FFC663',
+                      borderColor: '#87CEEB',
                       backgroundColor: '#fff',
                     },
                     '& .MuiInputLabel-root': {
-                      color: '#FFC663',
+                      color: '#87CEEB',
                     },
                     '& .MuiOutlinedInput-notchedOutline': {
-                      borderColor: '#FFC663',
+                      borderColor: '#87CEEB',
                     },
                   }}
-                  InputLabelProps={{ style: { color: '#FFC663' }, shrink: true }}
+                  InputLabelProps={{ style: { color: '#87CEEB' }, shrink: true }}
                   inputProps={{ min: 0 }}
                 />
-                <IconButton onClick={() => handleDeleteSet(idx)} disabled={sets.length === 1} sx={{ ml: 1 }}>
-                  <DeleteIcon sx={{ color: '#FFB84C' }} />
+                <IconButton
+                  onClick={() => handleDeleteSet(idx)}
+                  disabled={sets.length === 1}
+                  sx={{ ml: { xs: 0, sm: 1 }, alignSelf: { xs: 'flex-end', sm: 'center' } }}
+                >
+                  <DeleteIcon sx={{ color: '#5F9EA0' }} />
                 </IconButton>
               </Box>
             ))}
             <Button
               onClick={handleAddSet}
               sx={{
-                color: '#FFB84C',
+                color: '#5F9EA0',
                 fontWeight: 600,
                 background: 'none',
                 boxShadow: 'none',
                 mt: 0,
                 mb: 0,
-                fontSize: '1.1rem',
+                fontSize: { xs: '1rem', sm: '1.1rem' },
                 marginBottom: 0,
-                '&:hover': { color: '#FFA500', background: 'none' }
+                '&:hover': { color: '#4682B4', background: 'none' },
               }}
             >
               + Add Set
@@ -412,47 +451,100 @@ const App: React.FC = () => {
                 backgroundColor: '#fff',
                 '& .MuiOutlinedInput-root': {
                   borderRadius: '12px',
-                  borderColor: '#FFC663',
+                  borderColor: '#87CEEB',
                   backgroundColor: '#fff',
                 },
                 '& .MuiInputLabel-root': {
-                  color: '#FFC663',
+                  color: '#87CEEB',
                 },
                 '& .MuiOutlinedInput-notchedOutline': {
-                  borderColor: '#FFC663',
+                  borderColor: '#87CEEB',
                 },
                 mt: 0,
                 marginTop: 0,
+                fontSize: { xs: '1rem', sm: '1.1rem' },
               }}
-              InputLabelProps={{ style: { color: '#FFC663' } }}
+              InputLabelProps={{ style: { color: '#87CEEB' } }}
               inputProps={{ min: 1 }}
             />
           </Box>
           <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', mb: 2.5 }}>
-            <Button variant="outlined" onClick={saveRoutine} sx={{ background: '#fff', borderColor: '#FFC663', color: '#FFC663', fontWeight: 600, borderRadius: 2, '&:hover': { borderColor: '#FFB84C', color: '#FFB84C', background: '#fff' } }}>
+            <Button
+              variant="outlined"
+              onClick={saveRoutine}
+              sx={{
+                background: '#fff',
+                borderColor: '#87CEEB',
+                color: '#87CEEB',
+                fontWeight: 600,
+                borderRadius: 2,
+                fontSize: { xs: '1rem', sm: '1.1rem' },
+                px: { xs: 2, sm: 3 },
+                py: { xs: 1, sm: 1.5 },
+                '&:hover': {
+                  borderColor: '#5F9EA0',
+                  color: '#5F9EA0',
+                  background: '#fff',
+                },
+              }}
+            >
               Save Routine
             </Button>
           </Box>
         </Box>
       </Drawer>
       {/* Centered Timer Card */}
-      <Box sx={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 1200 }}>
-        <Paper elevation={3} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', p: { xs: 2, md: 4 }, borderRadius: '30px', background: '#fff', boxShadow: '0 2px 16px 0 rgba(0,0,0,0.06)', maxWidth: 600, width: { xs: '95vw', sm: 500 } }}>
+      <Box
+        sx={{
+          position: 'fixed',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          zIndex: 1200,
+          width: { xs: '100vw', sm: '95vw', md: 500 },
+          maxWidth: { xs: '100vw', sm: 600 },
+          px: { xs: 0.5, sm: 0 },
+        }}
+      >
+        <Paper
+          elevation={3}
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            p: { xs: 1, sm: 2, md: 4 },
+            borderRadius: '30px',
+            background: '#fff',
+            boxShadow: '0 2px 16px 0 rgba(0,0,0,0.06)',
+            maxWidth: { xs: '100vw', sm: 600 },
+            width: { xs: '100vw', sm: 500 },
+          }}
+        >
           {/* Select Routine Dropdown */}
-          <Box sx={{ width: '100%', mb: 2.5, display: 'flex', gap: 0.5, alignItems: 'center', justifyContent: 'center' }}>
+          <Box
+            sx={{
+              width: '100%',
+              mb: { xs: 1.5, sm: 2.5 },
+              display: 'flex',
+              gap: 0.5,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
             <select
               value={selectedRoutine}
               onChange={handleRoutineSelect}
               style={{
-                minWidth: 160,
+                minWidth: 120,
                 height: '40px',
                 borderRadius: '12px',
-                border: '1px solid #FFC663',
+                border: '1px solid #87CEEB',
                 padding: '0 32px 0 16px',
-                color: '#FFC663',
+                color: '#87CEEB',
                 background: '#fff',
                 fontWeight: 600,
-                fontSize: '1.1rem',
+                fontSize: '1rem',
                 fontFamily: 'inherit',
                 lineHeight: 1.5,
                 appearance: 'none',
@@ -461,35 +553,121 @@ const App: React.FC = () => {
                 outline: 'none',
                 boxShadow: 'none',
                 backgroundImage:
-                  'url("data:image/svg+xml;utf8,<svg fill=\'%23FFC663\' height=\'20\' viewBox=\'0 0 24 24\' width=\'20\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M7 10l5 5 5-5z\'/></svg>")',
+                  'url("data:image/svg+xml;utf8,<svg fill=\'%2387CEEB\' height=\'20\' viewBox=\'0 0 24 24\' width=\'20\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M7 10l5 5 5-5z\'/></svg>")',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'right 12px center',
                 backgroundSize: '20px 20px',
                 cursor: 'pointer',
+                width: '100%',
+                maxWidth: 320,
               }}
             >
               <option value="">SELECT ROUTINE</option>
               {savedRoutines.map(r => (
-                <option key={r.name} value={r.name}>{r.name}</option>
+                <option key={r.name} value={r.name}>
+                  {r.name}
+                </option>
               ))}
             </select>
           </Box>
           {/* Timer Display */}
-          <Box sx={{ p: { xs: 1, sm: 2 }, minHeight: 'auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', borderRadius: '30px', background: '#fff', maxWidth: 500, width: '100%', mb: 2, boxShadow: 'none' }} className={shake ? 'shake' : ''}>
-            <audio ref={beepAudio} src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" preload="auto" />
-            <Typography align="center" sx={{ fontSize: { xs: '4.2rem', sm: '5.2rem', md: '6rem' }, fontWeight: 700, color: '#FFC663', mb: 0.7, letterSpacing: '0.05em', lineHeight: 1 }}>
+          <Box
+            sx={{
+              p: { xs: 0.5, sm: 1, md: 2 },
+              minHeight: 'auto',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: '30px',
+              background: '#fff',
+              maxWidth: { xs: '100vw', sm: 500 },
+              width: '100%',
+              mb: { xs: 1, sm: 2 },
+              boxShadow: 'none',
+            }}
+            className={shake ? 'shake' : ''}
+          >
+            <audio
+              ref={beepAudio}
+              src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg"
+              preload="auto"
+            />
+            <Typography
+              align="center"
+              sx={{
+                fontSize: { xs: '3.2rem', sm: '4.2rem', md: '5.2rem', lg: '6rem' },
+                fontWeight: 700,
+                color: '#87CEEB',
+                mb: 0.7,
+                letterSpacing: '0.05em',
+                lineHeight: 1,
+                wordBreak: 'break-word',
+              }}
+            >
               {formatTime(timeLeft)}
             </Typography>
           </Box>
           {/* Timer Controls */}
-          <Box display="flex" justifyContent="center" gap={3} sx={{ width: '100%', mt: 0.7 }}>
-            <Button variant="contained" className="timer-btn start" sx={{ backgroundColor: '#C6E8FF !important', color: '#222 !important', minWidth: 100, borderRadius: '12px', fontWeight: 500, fontSize: '1.1rem', boxShadow: '0 2px 8px 0 rgba(0,0,0,0.04)' }} onClick={handleStart} disabled={isRunning && !isPaused}>
+          <Box
+            display="flex"
+            flexDirection={{ xs: 'column', sm: 'row' }}
+            justifyContent="center"
+            alignItems="center"
+            gap={{ xs: 1.5, sm: 3 }}
+            sx={{ width: '100%', mt: 0.7 }}
+          >
+            <Button
+              variant="contained"
+              className="timer-btn start"
+              sx={{
+                backgroundColor: '#C6E8FF !important',
+                color: '#222 !important',
+                minWidth: { xs: 80, sm: 100 },
+                borderRadius: '12px',
+                fontWeight: 500,
+                fontSize: { xs: '1rem', sm: '1.1rem' },
+                boxShadow: '0 2px 8px 0 rgba(0,0,0,0.04)',
+                py: { xs: 1, sm: 1.5 },
+              }}
+              onClick={handleStart}
+              disabled={isRunning && !isPaused}
+            >
               Start
             </Button>
-            <Button variant="contained" className="timer-btn pause" sx={{ backgroundColor: '#F3FFD6 !important', color: '#222 !important', minWidth: 100, borderRadius: '12px', fontWeight: 500, fontSize: '1.1rem', boxShadow: '0 2px 8px 0 rgba(0,0,0,0.04)' }} onClick={handlePause} disabled={!isRunning || isPaused}>
+            <Button
+              variant="contained"
+              className="timer-btn pause"
+              sx={{
+                backgroundColor: '#F3FFD6 !important',
+                color: '#222 !important',
+                minWidth: { xs: 80, sm: 100 },
+                borderRadius: '12px',
+                fontWeight: 500,
+                fontSize: { xs: '1rem', sm: '1.1rem' },
+                boxShadow: '0 2px 8px 0 rgba(0,0,0,0.04)',
+                py: { xs: 1, sm: 1.5 },
+              }}
+              onClick={handlePause}
+              disabled={!isRunning || isPaused}
+            >
               Pause
             </Button>
-            <Button variant="contained" className="timer-btn reset" sx={{ backgroundColor: '#FFCBE1 !important', color: '#222 !important', minWidth: 100, borderRadius: '12px', fontWeight: 500, fontSize: '1.1rem', boxShadow: '0 2px 8px 0 rgba(0,0,0,0.04)' }} onClick={handleReset}>
+            <Button
+              variant="contained"
+              className="timer-btn reset"
+              sx={{
+                backgroundColor: '#FFCBE1 !important',
+                color: '#222 !important',
+                minWidth: { xs: 80, sm: 100 },
+                borderRadius: '12px',
+                fontWeight: 500,
+                fontSize: { xs: '1rem', sm: '1.1rem' },
+                boxShadow: '0 2px 8px 0 rgba(0,0,0,0.04)',
+                py: { xs: 1, sm: 1.5 },
+              }}
+              onClick={handleReset}
+            >
               Reset
             </Button>
           </Box>
