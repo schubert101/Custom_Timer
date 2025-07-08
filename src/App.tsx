@@ -499,10 +499,15 @@ const App: React.FC = () => {
       {/* Centered Timer Card */}
       <Box
         sx={{
-          position: 'fixed',
-          top: { xs: '58%', sm: '50%' },
-          left: '50%',
-          transform: { xs: 'translate(-50%, -58%)', sm: 'translate(-50%, -50%)' },
+          position: { xs: 'static', sm: 'fixed' },
+          display: { xs: 'flex', sm: 'block' },
+          flexDirection: { xs: 'column', sm: 'initial' },
+          alignItems: { xs: 'center', sm: 'initial' },
+          justifyContent: { xs: 'center', sm: 'initial' },
+          minHeight: { xs: '100vh', sm: 'auto' },
+          top: { xs: 'auto', sm: '50%' },
+          left: { xs: 'auto', sm: '50%' },
+          transform: { xs: 'none', sm: 'translate(-50%, -50%)' },
           zIndex: 1200,
           width: { xs: '100vw', sm: '95vw', md: 500 },
           maxWidth: { xs: '100vw', sm: 600 },
@@ -516,6 +521,7 @@ const App: React.FC = () => {
         <Paper
           elevation={3}
           sx={{
+            position: { xs: 'static', sm: 'relative' },
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -523,7 +529,7 @@ const App: React.FC = () => {
             p: { xs: 0.5, sm: 2, md: 4 },
             borderRadius: { xs: 0, sm: '30px' },
             background: '#fff',
-            boxShadow: '0 2px 16px 0 rgba(0,0,0,0.06)',
+            boxShadow: { xs: 'none', sm: '0 2px 16px 0 rgba(0,0,0,0.06)' },
             maxWidth: { xs: '100vw', sm: 600 },
             width: { xs: '100vw', sm: 500 },
             minWidth: 0,
