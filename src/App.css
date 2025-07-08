@@ -205,3 +205,52 @@ html, body {
 .MuiPaper-root.shake {
   animation: shake 0.5s;
 }
+
+@media (max-width: 600px) {
+  .timer-btn {
+    font-size: 1.15rem;
+    padding: 1.1em 0.8em;
+    min-height: 44px;
+    min-width: 44px;
+  }
+  .MuiPaper-root {
+    padding: 20px 4px !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    box-sizing: border-box;
+  }
+  .MuiTextField-root,
+  .MuiInputBase-root,
+  .MuiOutlinedInput-root {
+    font-size: 1.1rem !important;
+    min-height: 44px !important;
+  }
+  .MuiInputLabel-root {
+    font-size: 1.05rem !important;
+  }
+  select {
+    font-size: 1.1rem !important;
+    min-height: 44px !important;
+    padding: 0.7em 1.2em !important;
+    width: 100% !important;
+    box-sizing: border-box;
+  }
+  .MuiTypography-h4 {
+    font-size: 2rem !important;
+    margin-bottom: 18px !important;
+  }
+  .routine-name-box,
+  .sets-box,
+  .repeat-box {
+    margin-bottom: 28px !important;
+  }
+  body, html, #root {
+    overflow-x: hidden !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+  }
+}

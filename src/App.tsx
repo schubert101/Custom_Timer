@@ -219,8 +219,7 @@ const App: React.FC = () => {
         <Box
           sx={{
             position: 'fixed',
-            top: { xs: 'auto', sm: '50%' },
-            bottom: { xs: 16, sm: 'auto' },
+            top: { xs: 100, sm: '50%' },
             left: 0,
             zIndex: 1301,
             transform: { xs: 'none', sm: 'translateY(-50%)' },
@@ -233,15 +232,17 @@ const App: React.FC = () => {
               background: '#fff',
               color: '#222',
               fontWeight: 500,
-              px: 0,
+              px: { xs: 0.5, sm: 1 },
               py: 0,
               minWidth: 0,
-              width: { xs: 36, sm: 32 },
-              height: { xs: 48, sm: 90 },
+              width: { xs: 40, sm: 40 },
+              height: { xs: 100, sm: 100 },
+              mt: { xs: 1, sm: 0 },
+              mb: { xs: 1, sm: 0 },
               boxShadow: '0 2px 8px 0 rgba(0,0,0,0.08)',
-              writingMode: { xs: 'horizontal-tb', sm: 'vertical-rl' },
-              textOrientation: { xs: 'mixed', sm: 'mixed' },
-              fontSize: { xs: '0.85rem', sm: '0.65rem' },
+              writingMode: 'vertical-rl',
+              textOrientation: 'mixed',
+              fontSize: { xs: '0.95rem', sm: '0.75rem' },
               letterSpacing: '0.03em',
               pointerEvents: 'auto',
               zIndex: 1400,
@@ -304,15 +305,17 @@ const App: React.FC = () => {
             background: '#fff',
             color: '#222',
             fontWeight: 500,
-            px: 0,
+            px: { xs: 0.5, sm: 1 },
             py: 0,
             minWidth: 0,
-            width: 32,
-            height: 90,
+            width: { xs: 40, sm: 40 },
+            height: { xs: 100, sm: 100 },
+            mt: { xs: 1, sm: 0 },
+            mb: { xs: 1, sm: 0 },
             boxShadow: '0 2px 8px 0 rgba(0,0,0,0.08)',
             writingMode: 'vertical-rl',
             textOrientation: 'mixed',
-            fontSize: '0.65rem',
+            fontSize: '0.75rem',
             letterSpacing: '0.03em',
             pointerEvents: 'auto',
             zIndex: 1400,
@@ -497,13 +500,17 @@ const App: React.FC = () => {
       <Box
         sx={{
           position: 'fixed',
-          top: '50%',
+          top: { xs: '58%', sm: '50%' },
           left: '50%',
-          transform: 'translate(-50%, -50%)',
+          transform: { xs: 'translate(-50%, -58%)', sm: 'translate(-50%, -50%)' },
           zIndex: 1200,
           width: { xs: '100vw', sm: '95vw', md: 500 },
           maxWidth: { xs: '100vw', sm: 600 },
-          px: { xs: 0.5, sm: 0 },
+          minWidth: 0,
+          px: { xs: 0, sm: 0 },
+          boxSizing: 'border-box',
+          height: { xs: '100vh', sm: 'auto' },
+          maxHeight: { xs: '100vh', sm: 'none' },
         }}
       >
         <Paper
@@ -513,19 +520,26 @@ const App: React.FC = () => {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'space-between',
-            p: { xs: 1, sm: 2, md: 4 },
-            borderRadius: '30px',
+            p: { xs: 0.5, sm: 2, md: 4 },
+            borderRadius: { xs: 0, sm: '30px' },
             background: '#fff',
             boxShadow: '0 2px 16px 0 rgba(0,0,0,0.06)',
             maxWidth: { xs: '100vw', sm: 600 },
             width: { xs: '100vw', sm: 500 },
+            minWidth: 0,
+            boxSizing: 'border-box',
+            maxHeight: { xs: 'calc(100vh - 24px)', sm: 'none' },
+            overflowY: { xs: 'auto', sm: 'visible' },
           }}
         >
           {/* Select Routine Dropdown */}
           <Box
             sx={{
               width: '100%',
-              mb: { xs: 1.5, sm: 2.5 },
+              minWidth: 0,
+              maxWidth: '100%',
+              boxSizing: 'border-box',
+              mb: { xs: 0.7, sm: 2.5 },
               display: 'flex',
               gap: 0.5,
               alignItems: 'center',
@@ -536,17 +550,19 @@ const App: React.FC = () => {
               value={selectedRoutine}
               onChange={handleRoutineSelect}
               style={{
-                minWidth: 120,
-                height: '40px',
+                width: '100%',
+                minWidth: 0,
+                maxWidth: '100%',
+                height: '48px',
                 borderRadius: '12px',
                 border: '1px solid #87CEEB',
-                padding: '0 32px 0 16px',
+                padding: '0 40px 0 16px', // extra right padding for icon
                 color: '#87CEEB',
                 background: '#fff',
                 fontWeight: 600,
-                fontSize: '1rem',
+                fontSize: '1.15rem',
                 fontFamily: 'inherit',
-                lineHeight: 1.5,
+                lineHeight: 1.3,
                 appearance: 'none',
                 WebkitAppearance: 'none',
                 MozAppearance: 'none',
@@ -558,13 +574,19 @@ const App: React.FC = () => {
                 backgroundPosition: 'right 12px center',
                 backgroundSize: '20px 20px',
                 cursor: 'pointer',
-                width: '100%',
-                maxWidth: 320,
+                whiteSpace: 'normal',
+                overflow: 'visible',
+                textOverflow: 'clip',
+                boxSizing: 'border-box',
+                overflowWrap: 'anywhere',
+                wordBreak: 'break-word',
               }}
             >
-              <option value="">SELECT ROUTINE</option>
+              <option value="" style={{fontSize: 'inherit', whiteSpace: 'normal', wordBreak: 'break-word', overflowWrap: 'anywhere'}}>
+                SELECT ROUTINE
+              </option>
               {savedRoutines.map(r => (
-                <option key={r.name} value={r.name}>
+                <option key={r.name} value={r.name} style={{fontSize: 'inherit', whiteSpace: 'normal', wordBreak: 'break-word', overflowWrap: 'anywhere'}}>
                   {r.name}
                 </option>
               ))}
@@ -583,7 +605,7 @@ const App: React.FC = () => {
               background: '#fff',
               maxWidth: { xs: '100vw', sm: 500 },
               width: '100%',
-              mb: { xs: 1, sm: 2 },
+              mb: { xs: 0.7, sm: 2 },
               boxShadow: 'none',
             }}
             className={shake ? 'shake' : ''}
@@ -596,7 +618,7 @@ const App: React.FC = () => {
             <Typography
               align="center"
               sx={{
-                fontSize: { xs: '3.2rem', sm: '4.2rem', md: '5.2rem', lg: '6rem' },
+                fontSize: { xs: '2.7rem', sm: '4.2rem', md: '5.2rem', lg: '6rem' },
                 fontWeight: 700,
                 color: '#87CEEB',
                 mb: 0.7,
@@ -611,11 +633,11 @@ const App: React.FC = () => {
           {/* Timer Controls */}
           <Box
             display="flex"
-            flexDirection={{ xs: 'column', sm: 'row' }}
+            flexDirection={{ xs: 'row', sm: 'row' }}
             justifyContent="center"
             alignItems="center"
-            gap={{ xs: 1.5, sm: 3 }}
-            sx={{ width: '100%', mt: 0.7 }}
+            gap={{ xs: 0.7, sm: 3 }}
+            sx={{ width: '100%', mt: 0.7, mb: { xs: 0.7, sm: 0 } }}
           >
             <Button
               variant="contained"
