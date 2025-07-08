@@ -203,7 +203,7 @@ html, body {
   100% { transform: translateX(0); }
 }
 .MuiPaper-root.shake {
-  animation: shake 0.5s;
+  animation: shake 0.8s;
 }
 
 @media (max-width: 600px) {

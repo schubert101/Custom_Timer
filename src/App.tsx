@@ -63,6 +63,12 @@ const App: React.FC = () => {
   const handleRoutineSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const name = e.target.value;
     setSelectedRoutine(name);
+    if (name === "") {
+      setRoutineName("");
+      setSets([{ work: 0, rest: 0 }]);
+      setRepeat(1);
+      return;
+    }
     const routine = savedRoutines.find(r => r.name === name);
     if (routine) {
       setRoutineName(routine.name);
@@ -326,6 +332,58 @@ const App: React.FC = () => {
           Options
         </Button>
         <Box sx={{ width: '100%' }}>
+          {/* In the Drawer, ensure the order is:
+              // 1. Select Routine dropdown
+              // 2. Routine Name input
+              // 3. Sets, Repeat, Save, Delete, etc. */}
+          <Box sx={{ width: '100%', mb: { xs: 1.5, sm: 2.5 } }}>
+            <select
+              value={selectedRoutine}
+              onChange={handleRoutineSelect}
+              style={{
+                width: '100%',
+                minWidth: 0,
+                maxWidth: '100%',
+                height: '44px',
+                borderRadius: '12px',
+                border: '1px solid #87CEEB',
+                padding: '0 40px 0 16px',
+                color: '#87CEEB',
+                background: '#fff',
+                fontWeight: 600,
+                fontSize: '1.15rem',
+                fontFamily: 'inherit',
+                lineHeight: 1.3,
+                appearance: 'none',
+                WebkitAppearance: 'none',
+                MozAppearance: 'none',
+                outline: 'none',
+                boxShadow: 'none',
+                backgroundImage:
+                  'url("data:image/svg+xml;utf8,<svg fill=\'%2387CEEB\' height=\'20\' viewBox=\'0 0 24 24\' width=\'20\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M7 10l5 5 5-5z\'/></svg>")',
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'right 12px center',
+                backgroundSize: '20px 20px',
+                cursor: 'pointer',
+                whiteSpace: 'normal',
+                overflow: 'visible',
+                textOverflow: 'clip',
+                boxSizing: 'border-box',
+                overflowWrap: 'anywhere',
+                wordBreak: 'break-word',
+                marginBottom: 16,
+              }}
+            >
+              <option value="" style={{color: '#87CEEB', fontSize: 'inherit', whiteSpace: 'normal', wordBreak: 'break-word', overflowWrap: 'anywhere'}}>
+                SELECT ROUTINE
+              </option>
+              {savedRoutines.map(r => (
+                <option key={r.name} value={r.name} style={{color: '#87CEEB', fontSize: 'inherit', whiteSpace: 'normal', wordBreak: 'break-word', overflowWrap: 'anywhere'}}>
+                  {r.name}
+                </option>
+              ))}
+            </select>
+          </Box>
           <Box className="routine-name-box" sx={{ width: '100%', mb: 0.7 }}>
             <TextField
               label="Routine Name"
@@ -335,20 +393,23 @@ const App: React.FC = () => {
               sx={{
                 mb: 2,
                 backgroundColor: '#fff',
+                color: '#4682B4',
                 '& .MuiOutlinedInput-root': {
                   borderRadius: '12px',
                   borderColor: '#87CEEB',
                   backgroundColor: '#fff',
+                  color: '#4682B4',
                 },
                 '& .MuiInputLabel-root': {
-                  color: '#87CEEB',
+                  color: '#4682B4',
                 },
                 '& .MuiOutlinedInput-notchedOutline': {
                   borderColor: '#87CEEB',
                 },
                 fontSize: { xs: '1rem', sm: '1.1rem' },
               }}
-              InputLabelProps={{ style: { color: '#87CEEB' } }}
+              InputLabelProps={{ style: { color: '#4682B4' } }}
+              inputProps={{ style: { color: '#4682B4' } }}
             />
           </Box>
           <Box className="sets-box" sx={{ width: '100%', mb: 0 }}>
@@ -375,20 +436,22 @@ const App: React.FC = () => {
                     mr: { xs: 0, sm: 1 },
                     mb: { xs: 1, sm: 0 },
                     backgroundColor: '#fff',
+                    color: '#4682B4',
                     '& .MuiOutlinedInput-root': {
                       borderRadius: '12px',
                       borderColor: '#87CEEB',
                       backgroundColor: '#fff',
+                      color: '#4682B4',
                     },
                     '& .MuiInputLabel-root': {
-                      color: '#87CEEB',
+                      color: '#4682B4',
                     },
                     '& .MuiOutlinedInput-notchedOutline': {
                       borderColor: '#87CEEB',
                     },
                   }}
-                  InputLabelProps={{ style: { color: '#87CEEB' }, shrink: true }}
-                  inputProps={{ min: 0 }}
+                  InputLabelProps={{ style: { color: '#4682B4' }, shrink: true }}
+                  inputProps={{ min: 0, style: { color: '#4682B4' } }}
                 />
                 <TextField
                   label="Rest (mins)"
@@ -402,20 +465,22 @@ const App: React.FC = () => {
                     mr: { xs: 0, sm: 1 },
                     mb: { xs: 1, sm: 0 },
                     backgroundColor: '#fff',
+                    color: '#4682B4',
                     '& .MuiOutlinedInput-root': {
                       borderRadius: '12px',
                       borderColor: '#87CEEB',
                       backgroundColor: '#fff',
+                      color: '#4682B4',
                     },
                     '& .MuiInputLabel-root': {
-                      color: '#87CEEB',
+                      color: '#4682B4',
                     },
                     '& .MuiOutlinedInput-notchedOutline': {
                       borderColor: '#87CEEB',
                     },
                   }}
-                  InputLabelProps={{ style: { color: '#87CEEB' }, shrink: true }}
-                  inputProps={{ min: 0 }}
+                  InputLabelProps={{ style: { color: '#4682B4' }, shrink: true }}
+                  inputProps={{ min: 0, style: { color: '#4682B4' } }}
                 />
                 <IconButton
                   onClick={() => handleDeleteSet(idx)}
@@ -452,13 +517,15 @@ const App: React.FC = () => {
               fullWidth
               sx={{
                 backgroundColor: '#fff',
+                color: '#4682B4',
                 '& .MuiOutlinedInput-root': {
                   borderRadius: '12px',
                   borderColor: '#87CEEB',
                   backgroundColor: '#fff',
+                  color: '#4682B4',
                 },
                 '& .MuiInputLabel-root': {
-                  color: '#87CEEB',
+                  color: '#4682B4',
                 },
                 '& .MuiOutlinedInput-notchedOutline': {
                   borderColor: '#87CEEB',
@@ -467,8 +534,8 @@ const App: React.FC = () => {
                 marginTop: 0,
                 fontSize: { xs: '1rem', sm: '1.1rem' },
               }}
-              InputLabelProps={{ style: { color: '#87CEEB' } }}
-              inputProps={{ min: 1 }}
+              InputLabelProps={{ style: { color: '#4682B4' } }}
+              inputProps={{ min: 1, style: { color: '#4682B4' } }}
             />
           </Box>
           <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', mb: 2.5 }}>
@@ -492,6 +559,52 @@ const App: React.FC = () => {
               }}
             >
               Save Routine
+            </Button>
+          </Box>
+          <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', mb: { xs: 1.5, sm: 2.5 } }}>
+            <Button
+              variant="outlined"
+              color="error"
+              disabled={!selectedRoutine}
+              onClick={() => {
+                if (!selectedRoutine) return;
+                if (window.confirm('정말 이 루틴을 삭제할까요?')) {
+                  const updatedRoutines = savedRoutines.filter(r => r.name !== selectedRoutine);
+                  setSavedRoutines(updatedRoutines);
+                  localStorage.setItem('routines', JSON.stringify(updatedRoutines));
+                  setSelectedRoutine('');
+                  setRoutineName('');
+                  setSets([{ work: 0, rest: 0 }]);
+                  setRepeat(1);
+                  alert('루틴이 삭제되었습니다.');
+                }
+              }}
+              sx={{
+                background: '#fff',
+                borderColor: '#87CEEB',
+                color: '#87CEEB',
+                fontWeight: 600,
+                borderRadius: 2,
+                fontSize: { xs: '1rem', sm: '1.1rem' },
+                px: { xs: 2, sm: 3 },
+                py: { xs: 1, sm: 1.5 },
+                mt: { xs: 1, sm: 2 },
+                width: '100%',
+                maxWidth: 320,
+                '&:hover': {
+                  borderColor: '#5F9EA0',
+                  color: '#fff',
+                  background: '#FF6B6B',
+                },
+                '&.Mui-disabled': {
+                  color: '#b0c4de',
+                  borderColor: '#b0c4de',
+                  background: '#f5f5f5',
+                },
+                transition: 'all 0.2s',
+              }}
+            >
+              DELETE ROUTINE
             </Button>
           </Box>
         </Box>
@@ -537,67 +650,8 @@ const App: React.FC = () => {
             maxHeight: { xs: 'calc(100vh - 24px)', sm: 'none' },
             overflowY: { xs: 'auto', sm: 'visible' },
           }}
+          className={shake ? 'shake' : ''}
         >
-          {/* Select Routine Dropdown */}
-          <Box
-            sx={{
-              width: '100%',
-              minWidth: 0,
-              maxWidth: '100%',
-              boxSizing: 'border-box',
-              mb: { xs: 0.7, sm: 2.5 },
-              display: 'flex',
-              gap: 0.5,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <select
-              value={selectedRoutine}
-              onChange={handleRoutineSelect}
-              style={{
-                width: '100%',
-                minWidth: 0,
-                maxWidth: '100%',
-                height: '48px',
-                borderRadius: '12px',
-                border: '1px solid #87CEEB',
-                padding: '0 40px 0 16px', // extra right padding for icon
-                color: '#87CEEB',
-                background: '#fff',
-                fontWeight: 600,
-                fontSize: '1.15rem',
-                fontFamily: 'inherit',
-                lineHeight: 1.3,
-                appearance: 'none',
-                WebkitAppearance: 'none',
-                MozAppearance: 'none',
-                outline: 'none',
-                boxShadow: 'none',
-                backgroundImage:
-                  'url("data:image/svg+xml;utf8,<svg fill=\'%2387CEEB\' height=\'20\' viewBox=\'0 0 24 24\' width=\'20\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M7 10l5 5 5-5z\'/></svg>")',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'right 12px center',
-                backgroundSize: '20px 20px',
-                cursor: 'pointer',
-                whiteSpace: 'normal',
-                overflow: 'visible',
-                textOverflow: 'clip',
-                boxSizing: 'border-box',
-                overflowWrap: 'anywhere',
-                wordBreak: 'break-word',
-              }}
-            >
-              <option value="" style={{fontSize: 'inherit', whiteSpace: 'normal', wordBreak: 'break-word', overflowWrap: 'anywhere'}}>
-                SELECT ROUTINE
-              </option>
-              {savedRoutines.map(r => (
-                <option key={r.name} value={r.name} style={{fontSize: 'inherit', whiteSpace: 'normal', wordBreak: 'break-word', overflowWrap: 'anywhere'}}>
-                  {r.name}
-                </option>
-              ))}
-            </select>
-          </Box>
           {/* Timer Display */}
           <Box
             sx={{
@@ -700,6 +754,21 @@ const App: React.FC = () => {
             </Button>
           </Box>
         </Paper>
+        <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', mt: { xs: 1.5, sm: 2.5 } }}>
+          <Typography
+            variant="body2"
+            sx={{
+              color: '#bbb',
+              fontSize: { xs: '0.95rem', sm: '1rem' },
+              textAlign: 'center',
+              width: '100%',
+              maxWidth: 500,
+              fontWeight: 400,
+            }}
+          >
+            OPTIONS에서 나만의 포모도로 인터벌을 만들어보세요.
+          </Typography>
+        </Box>
       </Box>
     </Box>
   );
